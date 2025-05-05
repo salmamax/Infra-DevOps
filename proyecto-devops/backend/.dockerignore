@@ -1,0 +1,6 @@
+# backend/.dockerignore
+vendor/        # Se reinstala con composer install
+.git/
+.env
+var/cache/     # Symfony: se regenera en el contenedor
+var/log/

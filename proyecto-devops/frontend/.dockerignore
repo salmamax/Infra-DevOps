@@ -1,0 +1,6 @@
+# frontend/.dockerignore
+node_modules/   # No se necesita en el contenedor (se reinstala con npm install)
+.git/          # Excluye el control de versiones
+.env           # Variables locales (usar las del contenedor)
+dist/          # Se genera durante el build (opcional)
+*.log          # Logs locales

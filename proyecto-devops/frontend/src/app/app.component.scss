@@ -1,0 +1,39 @@
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  font-family: Arial, sans-serif;
+
+  .add-dog-form {
+    margin: 1rem 0;
+    display: flex;
+    gap: 0.5rem;
+
+    input {
+      padding: 0.5rem;
+      flex-grow: 1;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      background: #42b983;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  }
+
+  .error { color: #ff4757; }
+  .loading { color: #3498db; }
+  .no-dogs { color: #7f8c8d; }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    
+    li {
+      padding: 0.5rem;
+      border-bottom: 1px solid #ecf0f1;
+    }
+  }
+}

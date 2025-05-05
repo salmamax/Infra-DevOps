@@ -1,0 +1,66 @@
+version: "3.8"
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      target: builder
+    container_name: angular_prod
+    volumes:
+      - ./frontend/dist:/usr/share/nginx/html
+    networks:
+      - prodnet
+    environment:
+      - NODE_ENV=production
+      - API_URL=/api
+
+  backend:
+    build:
+      context: .  # Cambiado a raíz del proyecto
+      dockerfile: ./docker/php/Dockerfile  # Ruta relativa al nuevo contexto
+    container_name: symfony_prod
+    volumes:
+      - ./backend:/var/www/html
+    environment:
+      - APP_ENV=prod
+      - DATABASE_URL=mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@mysql:3306/${MYSQL_DATABASE}
+    depends_on:
+      - mysql
+    networks:
+      - prodnet
+
+  mysql:
+    image: mysql:${MYSQL_VERSION:-8.0}
+    container_name: mysql_prod
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql_data_prod:/var/lib/mysql
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - prodnet
+
+  nginx:
+    image: nginx:1.25-alpine  # Recomendado usar alpine para producción
+    container_name: nginx_prod
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/nginx/prod.conf:/etc/nginx/conf.d/default.conf
+      - ./frontend/dist:/usr/share/nginx/html
+      - ./backend/public:/var/www/html
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - prodnet
+
+volumes:
+  mysql_data_prod:
+
+networks:
+  prodnet:
+    driver: bridge

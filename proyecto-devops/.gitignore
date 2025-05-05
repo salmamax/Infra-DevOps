@@ -1,0 +1,49 @@
+# Node.js / Angular
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/.env
+frontend/.env.local
+
+# Symfony / PHP
+backend/vendor/
+backend/var/
+backend/.env
+backend/.env.local
+backend/.env.test
+backend/.env.prod
+backend/.env.*
+
+# Logs
+logs/
+*.log
+
+# Docker
+docker/mysql/data/
+docker/php/data/
+docker/nginx/data/
+mysql_data/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Entorno global
+.env
+.env.local
+.env.test
+.env.prod
+
+# Otros
+*.swp
+*.swo
+.idea/
+.vscode/
+*.bak
+*.tmp
+docker-compose.override.yml
+
+# Test coverage
+coverage/
+frontend/coverage/
+backend/coverage/
