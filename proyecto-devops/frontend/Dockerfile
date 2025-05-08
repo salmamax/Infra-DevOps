@@ -8,5 +8,5 @@ RUN npm run build -- --configuration=production  # Build de producción
 
 # Fase final (servir con Nginx)
 FROM nginx:1.25-alpine
-COPY --from=builder /app/dist/frontend /usr/share/nginx/html
+COPY --from=builder /app/dist/browser /usr/share/nginx/html
 COPY docker/nginx/angular.conf /etc/nginx/conf.d/default.conf
